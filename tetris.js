@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let nextRandom = 0
   let timerId
   let score = 0
+  let gamePause = false
 
   const lTetromino = [
     [1, width+1, width*2+1, 2],
@@ -174,16 +175,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (timerId) {
       clearInterval(timerId);
       timerId = null;
+      startBtn.innerHTML = 'Resume';
     } else {
-      if (!gameStarted) { // Only change the "upNext" tetromino if the game hasn't started yet
+      if (!gameStarted) {
+        // Only change the "upNext" tetromino if the game hasn't started yet
         nextRandom = Math.floor(Math.random() * theTetrominoes.length);
         displayShape();
-        gameStarted = true; // Set gameStarted to true
+        gameStarted = true;
       }
-      draw();
+      if (gamePause) {
+        startBtn.innerHTML = 'Pause';
+        gamePause = false;
+      } else {
+        draw();
+        startBtn.innerHTML = 'Pause';
+      }
       timerId = setInterval(moveDown, 1000);
     }
   });
+  
 
   function addScore(){
     for(let i = 0; i< 199; i += width){
