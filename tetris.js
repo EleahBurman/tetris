@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const startBtn = document.querySelector('#start-button')
   const width = 10
   let nextRandom = 0
+  let timerId = 0
 
   const lTetromino = [
     [1, width+1, width*2+1, 2],
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   //make the tetromino move down every second
-  timerId = setInterval(moveDown,1000)
+
 
   //assign functions to keyCodes
   function control(e){
